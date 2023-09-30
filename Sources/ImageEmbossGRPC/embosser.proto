@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "github.com/sfomuseum/go-image-emboss/grpc";
+
+service Embosser {
+	rpc EmbossImage(EmbossImageRequest) returns (EmbossImageResponse) {}
+}
+
+message EmbossImageRequest {
+	string Filename = 1;
+	bytes Body = 2;
+	bool Combined = 3;
+}
+
+message EmbossImageResponse {
+	string Filename = 1;
+	repeated bytes Body = 2;
+	bool Combined = 3;	
+}	
