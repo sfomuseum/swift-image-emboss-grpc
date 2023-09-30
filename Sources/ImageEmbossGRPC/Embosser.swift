@@ -39,7 +39,7 @@ final class ImageEmbosser: EmbosserAsyncProvider {
         case .failure(let error):
             throw(error)
         case .success(let im):
-            cg_im = im
+            ci_im = im
         }
         
         let te = ImageEmboss()
@@ -48,11 +48,13 @@ final class ImageEmbosser: EmbosserAsyncProvider {
          switch rsp {
          case .failure(_):
              throw(Errors.processError)
-         case .success(let txt):
+         case .success(let im):
              
-             return EmbossTextResponse.with{
+             return EmbossImageResponse.with{
                  $0.filename = request.filename
-                 $0.body = Data(txt.utf8)
+                 // To do: Return a repeatable blob of bytes
+                 // $0.body = Data(im)
+                 $0.combined = request.combined
              }
              
          }
