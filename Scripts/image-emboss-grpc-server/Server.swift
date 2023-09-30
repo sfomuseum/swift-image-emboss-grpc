@@ -2,7 +2,7 @@ import ArgumentParser
 import Logging
 import ImageEmbossGRPC
 
-@available(macOS 10.15, *)
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, *)
 @main
 struct ImageEmbossServer: AsyncParsableCommand {
     
