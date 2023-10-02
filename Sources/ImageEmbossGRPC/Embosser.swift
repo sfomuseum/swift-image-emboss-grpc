@@ -30,7 +30,7 @@ final class ImageEmbosser: EmbosserAsyncProvider {
                 print(error)
             }
         }
-         
+                 
         var ci_im: CIImage
 
         let im_rsp = CoreImageImage.LoadFromURL(url: temporaryFileURL)
