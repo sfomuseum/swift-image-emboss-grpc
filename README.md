@@ -35,6 +35,8 @@ $> ./.build/debug/image-emboss-grpc-server
 2023-09-01T11:48:13-0700 info org.sfomuseum.image-emboss-grpc-server : [image_emboss_grpc_server] server started on port 1234
 ```
 
+_For example output have a look at [the examples in the sfomuseum/go-image-emboss package](https://github.com/sfomuseum/go-image-emboss#examples)._
+
 ## Clients
 
 * https://github.com/sfomuseum/go-image-emboss
