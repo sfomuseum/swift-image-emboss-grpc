@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "swift-coreimage-image",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sfomuseum/swift-coreimage-image.git",
+      "state" : {
+        "branch" : "png",
+        "revision" : "8ef5613865d195bfef40c47ec77119238d51c212"
+      }
+    },
+    {
       "identity" : "swift-image-emboss",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sfomuseum/swift-image-emboss",

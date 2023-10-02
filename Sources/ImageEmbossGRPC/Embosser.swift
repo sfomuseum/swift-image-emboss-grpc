@@ -66,7 +66,6 @@ final class ImageEmbosser: EmbosserAsyncProvider {
              
              return EmbossImageResponse.with{
                  $0.filename = request.filename
-                 // To do: Return a repeatable blob of bytes
                  $0.body = data
                  $0.combined = request.combined
              }

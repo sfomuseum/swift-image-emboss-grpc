@@ -16,8 +16,8 @@ let package = Package(
         .package(url: "https://github.com/grpc/grpc-swift.git", from: "1.15.0"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.6.0"),
         .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
-        //  .package(url: "https://github.com/sfomuseum/swift-coreimage-image.git", from: "1.0.0")
-        .package(path: "/usr/local/sfomuseum/swift-coreimage-image")
+        .package(url: "https://github.com/sfomuseum/swift-coreimage-image.git", branch: "png"),
+        // .package(path: "/usr/local/sfomuseum/swift-coreimage-image")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
