@@ -4,13 +4,20 @@ import Foundation
 import ImageEmboss
 import CoreImage
 import CoreImageImage
+import Logging
 
 @available(macOS 14.0, iOS 17.0, tvOS 17.0, *)
 final class ImageEmbosser: EmbosserAsyncProvider {
   let interceptors: EmbosserServerInterceptorFactoryProtocol? = nil
     
+    private let logger: Logger
+    
+    internal init(logger: Logger) {
+        self.logger = logger
+    }
+    
     func embossImage(request: EmbossImageRequest, context: GRPC.GRPCAsyncServerCallContext) async throws -> EmbossImageResponse {
-        
+
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                             isDirectory: true)
         
@@ -26,17 +33,20 @@ final class ImageEmbosser: EmbosserAsyncProvider {
             do {
                 try FileManager.default.removeItem(at: temporaryFileURL)
             } catch {
-                // To do: Use swift-log
-                print(error)
+                self.logger.error("Failed to remove temporary file at \(temporaryFileURL), \(error)")
             }
         }
-                 
+                        
+        let headers = String(describing: context.request.headers)
+        self.logger.info("\(headers)")
+        
         var ci_im: CIImage
 
         let im_rsp = CoreImageImage.LoadFromURL(url: temporaryFileURL)
         
         switch im_rsp {
         case .failure(let error):
+            self.logger.error("Failed to load image from \(temporaryFileURL), \(error)")
             throw(error)
         case .success(let im):
             ci_im = im
@@ -46,7 +56,8 @@ final class ImageEmbosser: EmbosserAsyncProvider {
         let rsp = te.ProcessImage(image: ci_im, combined: request.combined)
          
          switch rsp {
-         case .failure(_):
+         case .failure(let error):
+             self.logger.error("Failed to process image from \(temporaryFileURL), \(error)")
              throw(Errors.processError)
          case .success(let im_rsp):
              
@@ -58,11 +69,14 @@ final class ImageEmbosser: EmbosserAsyncProvider {
                  
                  switch png_rsp {
                  case .failure(let png_err):
+                     self.logger.error("Failed to derive PNG from from \(temporaryFileURL) (processed), \(png_err)")
                      throw(png_err)
                  case .success(let png_data):
                      data.append(png_data)
                  }
              }
+             
+             self.logger.info("Successfully processed \(temporaryFileURL)")
              
              return EmbossImageResponse.with{
                  $0.filename = request.filename
