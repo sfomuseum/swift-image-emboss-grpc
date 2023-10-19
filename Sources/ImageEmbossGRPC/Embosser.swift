@@ -27,6 +27,14 @@ final class ImageEmbosser: EmbosserAsyncProvider {
         let temporaryFileURL =
             temporaryDirectoryURL.appendingPathComponent(temporaryFilename)
         
+        var remote_addr = ""
+        
+        let headers = context.request.headers
+        
+        if headers.first(name: "remoteAddress") != nil {
+            remote_addr = headers.first(name: "remoteAddress")!
+        }
+        
         try request.body.write(to: temporaryFileURL,
                        options: .atomic)
         
@@ -37,9 +45,6 @@ final class ImageEmbosser: EmbosserAsyncProvider {
                 self.logger.error("Failed to remove temporary file at \(temporaryFileURL), \(error)")
             }
         }
-                  
-        let headers = String(describing: context.request.headers)
-        self.logger.info("\(headers)")
         
         // print(context.remoteAddress)
         
@@ -79,7 +84,7 @@ final class ImageEmbosser: EmbosserAsyncProvider {
                  }
              }
              
-             self.logger.info("Successfully processed \(temporaryFileURL)")
+             self.logger.info("[\(remote_addr)] Successfully processed \(temporaryFileURL)")
              
              return EmbossImageResponse.with{
                  $0.filename = request.filename
