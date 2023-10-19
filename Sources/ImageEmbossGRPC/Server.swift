@@ -29,7 +29,7 @@ public class GRPCServer {
         try! group.syncShutdownGracefully()
       }
 
-        let embosser = ImageEmbosser(logger: self.logger)
+        let embosser = ImageEmbosser(logger: self.logger, interceptors: ImageEmbosserServerInterceptorFactory())
         
       // Start the server and print its address once it has started.
         
@@ -39,6 +39,7 @@ public class GRPCServer {
         
       let server = try await Server.insecure(group: group)
             .withServiceProviders([embosser])
+            .withLogger(logger)
             .bind(host: self.host, port: self.port)
         .get()
 

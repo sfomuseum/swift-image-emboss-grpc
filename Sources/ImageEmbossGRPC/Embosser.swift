@@ -8,12 +8,13 @@ import Logging
 
 @available(macOS 14.0, iOS 17.0, tvOS 17.0, *)
 final class ImageEmbosser: EmbosserAsyncProvider {
-  let interceptors: EmbosserServerInterceptorFactoryProtocol? = nil
-    
+    internal let interceptors: EmbosserServerInterceptorFactoryProtocol? 
+        
     private let logger: Logger
     
-    internal init(logger: Logger) {
+    internal init(logger: Logger, interceptors: EmbosserServerInterceptorFactoryProtocol?) {
         self.logger = logger
+        self.interceptors = interceptors
     }
     
     func embossImage(request: EmbossImageRequest, context: GRPC.GRPCAsyncServerCallContext) async throws -> EmbossImageResponse {
@@ -36,9 +37,11 @@ final class ImageEmbosser: EmbosserAsyncProvider {
                 self.logger.error("Failed to remove temporary file at \(temporaryFileURL), \(error)")
             }
         }
-                        
+                  
         let headers = String(describing: context.request.headers)
         self.logger.info("\(headers)")
+        
+        // print(context.remoteAddress)
         
         var ci_im: CIImage
 
