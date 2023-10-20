@@ -9,4 +9,5 @@ protoc:
 		--grpc-swift_out=Sources/ImageEmbossGRPC/
 
 server:
-	./.build/debug/image-emboss-grpc-server
+	./.build/debug/image-emboss-grpc-server \
+		--log_file ./logs/image-emboss-grpc-server.log

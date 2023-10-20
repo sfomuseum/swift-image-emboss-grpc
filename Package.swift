@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "ImageEmbossGRPC",
+    platforms: [
+        .macOS(.v10_15), .iOS(.v16), .tvOS(.v16)
+    ],
     products: [
         .library(
             name: "ImageEmbossGRPC",
@@ -16,8 +19,9 @@ let package = Package(
         .package(url: "https://github.com/grpc/grpc-swift.git", from: "1.15.0"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.6.0"),
         .package(url: "https://github.com/apple/swift-log.git", from: "1.5.3"),
-        .package(url: "https://github.com/sfomuseum/swift-coreimage-image.git", from: "1.1.0"),
         // .package(path: "/usr/local/sfomuseum/swift-coreimage-image")
+        .package(url: "https://github.com/sfomuseum/swift-coreimage-image.git", from: "1.1.0"),
+        .package(url: "https://github.com/sushichop/Puppy.git", from: "0.7.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -30,7 +34,9 @@ let package = Package(
                 .product(name: "GRPC", package: "grpc-swift"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
-                .product(name:"CoreImageImage", package: "swift-coreimage-image")
+                .product(name:"CoreImageImage", package: "swift-coreimage-image"),
+                .product(name:"Puppy", package: "Puppy")
+
             ],
             exclude: ["embosser.proto"]
         ),
@@ -43,7 +49,8 @@ let package = Package(
                 .product(name: "GRPC", package: "grpc-swift"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
-                .product(name:"CoreImageImage", package: "swift-coreimage-image")
+                .product(name:"CoreImageImage", package: "swift-coreimage-image"),
+                .product(name:"Puppy", package: "Puppy")
             ],
             path: "Scripts"
 	)

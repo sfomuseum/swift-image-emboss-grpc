@@ -1,7 +1,8 @@
 import Foundation
 import GRPC
 
-// This is used in conjunction
+// This is used in conjunction with GRPCServerLogger to append the remote address
+// associated with the request to metadata in log messages.
 
 final class ImageEmbosserServerInterceptorFactory: EmbosserServerInterceptorFactoryProtocol {
     
@@ -16,18 +17,15 @@ final class ImageEmbosserServerInterceptor: ServerInterceptor<EmbossImageRequest
       _ part: GRPCServerRequestPart<EmbossImageRequest>,
       context: ServerInterceptorContext<EmbossImageRequest, EmbossImageResponse>
     ) {
+        
         switch part {
         case .metadata(var m):
             if context.remoteAddress != nil {
                 m.add(name: "remoteAddress", value: context.remoteAddress!.description)
             }
             context.receive(.metadata(m))
-            return
         default:
             context.receive(part)
         }
-        
-        
     }
-    
 }
