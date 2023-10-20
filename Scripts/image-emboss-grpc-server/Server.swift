@@ -52,7 +52,7 @@ struct ImageEmbossServer: AsyncParsableCommand {
 
       if log_file != nil {
           
-          let log_url = URL(fileURLWithPath: log_file!)
+          let log_url = URL(fileURLWithPath: log_file!).absoluteURL
           
           let rotationConfig = RotationConfig(suffixExtension: .numbering,
                                               maxFileSize: 30 * 1024 * 1024,
@@ -66,12 +66,12 @@ struct ImageEmbossServer: AsyncParsableCommand {
           
           puppy.add(fileRotation)
       }
-
+ 
       // See notes above
       
       let console = ConsoleLogger(log_label, logFormat: log_format)
       puppy.add(console)
-
+      
       LoggingSystem.bootstrap {
           
           var handler = PuppyLogHandler(label: $0, puppy: puppy)

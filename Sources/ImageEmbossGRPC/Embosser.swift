@@ -37,6 +37,7 @@ final class ImageEmbosser: EmbosserAsyncProvider {
             } catch {
                 self.logger.error("Failed to remove temporary file at \(temporaryFileURL), \(error)")
             }
+            
         }
                 
         var ci_im: CIImage
