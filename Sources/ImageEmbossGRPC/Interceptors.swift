@@ -1,6 +1,8 @@
 import Foundation
 import GRPC
 
+// This is used in conjunction
+
 final class ImageEmbosserServerInterceptorFactory: EmbosserServerInterceptorFactoryProtocol {
     
     func makeEmbossImageInterceptors() -> [GRPC.ServerInterceptor<EmbossImageRequest, EmbossImageResponse>] {

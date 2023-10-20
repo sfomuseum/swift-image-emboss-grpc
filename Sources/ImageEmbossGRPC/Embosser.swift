@@ -8,17 +8,18 @@ import Logging
 
 @available(macOS 14.0, iOS 17.0, tvOS 17.0, *)
 final class ImageEmbosser: EmbosserAsyncProvider {
-    internal let interceptors: EmbosserServerInterceptorFactoryProtocol? 
-        
-    private let logger: Logger
+    internal let interceptors: EmbosserServerInterceptorFactoryProtocol?
+    internal let logger: GRPCServerLogger
     
     internal init(logger: Logger, interceptors: EmbosserServerInterceptorFactoryProtocol?) {
-        self.logger = logger
+        self.logger = GRPCServerLogger(logger:logger)
         self.interceptors = interceptors
     }
     
     func embossImage(request: EmbossImageRequest, context: GRPC.GRPCAsyncServerCallContext) async throws -> EmbossImageResponse {
 
+        self.logger.setRemoteAddress(context: context)
+        
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                             isDirectory: true)
         
@@ -26,14 +27,6 @@ final class ImageEmbosser: EmbosserAsyncProvider {
 
         let temporaryFileURL =
             temporaryDirectoryURL.appendingPathComponent(temporaryFilename)
-        
-        var remote_addr = ""
-        
-        let headers = context.request.headers
-        
-        if headers.first(name: "remoteAddress") != nil {
-            remote_addr = headers.first(name: "remoteAddress")!
-        }
         
         try request.body.write(to: temporaryFileURL,
                        options: .atomic)
@@ -45,9 +38,7 @@ final class ImageEmbosser: EmbosserAsyncProvider {
                 self.logger.error("Failed to remove temporary file at \(temporaryFileURL), \(error)")
             }
         }
-        
-        // print(context.remoteAddress)
-        
+                
         var ci_im: CIImage
 
         let im_rsp = CoreImageImage.LoadFromURL(url: temporaryFileURL)
@@ -84,7 +75,7 @@ final class ImageEmbosser: EmbosserAsyncProvider {
                  }
              }
              
-             self.logger.info("[\(remote_addr)] Successfully processed \(temporaryFileURL)")
+             self.logger.info("Successfully processed \(temporaryFileURL)")
              
              return EmbossImageResponse.with{
                  $0.filename = request.filename
