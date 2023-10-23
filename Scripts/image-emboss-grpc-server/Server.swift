@@ -1,6 +1,7 @@
 import ArgumentParser
 import Logging
 import ImageEmbossGRPC
+import GRPCServer
 import Puppy
 import Foundation
 
@@ -92,8 +93,22 @@ struct ImageEmbossServer: AsyncParsableCommand {
       
       let logger = Logger(label: log_label)
       
-      let s = ImageEmbossGRPC.GRPCServer(logger: logger, threads: threads)
-      try await s.Run(host: host, port: port, tls_certificate: tls_certificate, tls_key: tls_key)
+      let embosser = ImageEmbosser(
+        logger: logger
+      )
+
+      let server_opts = GRPCServerOptions(
+        host: host,
+        port: port,
+        threads: threads,
+        logger: logger,
+        tls_certificate: tls_certificate,
+        tls_key: tls_key,
+        verbose: verbose
+      )
+      
+      let server = GRPCServer(server_opts)
+      try await server.Run([embosser])
 
   }
 }
