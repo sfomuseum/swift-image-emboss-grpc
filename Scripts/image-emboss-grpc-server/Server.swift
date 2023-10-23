@@ -41,10 +41,10 @@ struct ImageEmbossServer: AsyncParsableCommand {
     @Option(help: "Enable verbose logging")
     var verbose = false
     
-    @Option(help: "TLS certificate")
+    @Option(help: "The path to a TLS certificate to use for secure connections (optional)")
     var tls_certificate: String?
     
-    @Option(help: "TLS key")
+    @Option(help: "The path to a TLS key to use for secure connections (optional)")
     var tls_key: String?
     
   func run() async throws {
@@ -93,7 +93,7 @@ struct ImageEmbossServer: AsyncParsableCommand {
       
       let logger = Logger(label: log_label)
       
-      let embosser = ImageEmbosser(
+      let embosser = NewImageEmbosser(
         logger: logger
       )
 
@@ -109,6 +109,5 @@ struct ImageEmbossServer: AsyncParsableCommand {
       
       let server = GRPCServer(server_opts)
       try await server.Run([embosser])
-
   }
 }

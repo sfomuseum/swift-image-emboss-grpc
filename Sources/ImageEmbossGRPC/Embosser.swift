@@ -8,17 +8,22 @@ import Logging
 import GRPCServerLogger
 
 @available(macOS 14.0, iOS 17.0, tvOS 17.0, *)
-public final class ImageEmbosser: EmbosserAsyncProvider {
+public func NewImageEmbosser(logger: Logger) -> EmbosserAsyncProvider {
+    return ImageEmbosser(logger: logger)
+}
+
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, *)
+final class ImageEmbosser: EmbosserAsyncProvider {
     
-    public let interceptors: EmbosserServerInterceptorFactoryProtocol?
-    public let logger: GRPCServerLogger
+    let interceptors: EmbosserServerInterceptorFactoryProtocol?
+    let logger: GRPCServerLogger
     
-    public init(logger: Logger) {
+    init(logger: Logger) {
         self.logger = GRPCServerLogger(logger:logger)
         self.interceptors = ImageEmbosserServerInterceptorFactory()
     }
     
-    public func embossImage(request: EmbossImageRequest, context: GRPC.GRPCAsyncServerCallContext) async throws -> EmbossImageResponse {
+    func embossImage(request: EmbossImageRequest, context: GRPC.GRPCAsyncServerCallContext) async throws -> EmbossImageResponse {
 
         self.logger.setRemoteAddress(context: context)
         

@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sfomuseum/swift-grpc-server.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "cfb6693e5db09d8a8fb8d495df09b53caf58516f"
+        "revision" : "0cd6b2d0306ac0e098c32dd101565aa77af7f059",
+        "version" : "0.0.1"
       }
     },
     {
