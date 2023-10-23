@@ -19,9 +19,9 @@ let package = Package(
         .package(url: "https://github.com/grpc/grpc-swift.git", from: "1.15.0"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.6.0"),
         .package(url: "https://github.com/apple/swift-log.git", from: "1.5.3"),
-        // .package(path: "/usr/local/sfomuseum/swift-coreimage-image")
         .package(url: "https://github.com/sfomuseum/swift-coreimage-image.git", from: "1.1.0"),
         .package(url: "https://github.com/sushichop/Puppy.git", from: "0.7.0"),
+        .package(url: "https://github.com/sfomuseum/swift-grpc-server.git", from: "0.0.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -29,14 +29,13 @@ let package = Package(
         .target(
             name: "ImageEmbossGRPC",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "ImageEmboss", package: "swift-image-emboss"),
                 .product(name: "GRPC", package: "grpc-swift"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 .product(name:"CoreImageImage", package: "swift-coreimage-image"),
-                .product(name:"Puppy", package: "Puppy")
-
+                .product(name:"Puppy", package: "Puppy"),
+                .product(name: "GRPCServerLogger", package: "swift-grpc-server")
             ],
             exclude: ["embosser.proto"]
         ),
@@ -50,7 +49,8 @@ let package = Package(
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 .product(name:"CoreImageImage", package: "swift-coreimage-image"),
-                .product(name:"Puppy", package: "Puppy")
+                .product(name:"Puppy", package: "Puppy"),
+                .product(name: "GRPCServer", package: "swift-grpc-server")
             ],
             path: "Scripts"
 	)

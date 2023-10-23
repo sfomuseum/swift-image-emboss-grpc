@@ -1,6 +1,7 @@
 import ArgumentParser
 import Logging
 import ImageEmbossGRPC
+import GRPCServer
 import Puppy
 import Foundation
 
@@ -40,6 +41,12 @@ struct ImageEmbossServer: AsyncParsableCommand {
     @Option(help: "Enable verbose logging")
     var verbose = false
     
+    @Option(help: "The path to a TLS certificate to use for secure connections (optional)")
+    var tls_certificate: String?
+    
+    @Option(help: "The path to a TLS key to use for secure connections (optional)")
+    var tls_key: String?
+    
   func run() async throws {
 
     let log_label = "org.sfomuseum.image-emboss-grpc-server"
@@ -66,7 +73,7 @@ struct ImageEmbossServer: AsyncParsableCommand {
           
           puppy.add(fileRotation)
       }
- 
+      
       // See notes above
       
       let console = ConsoleLogger(log_label, logFormat: log_format)
@@ -86,8 +93,21 @@ struct ImageEmbossServer: AsyncParsableCommand {
       
       let logger = Logger(label: log_label)
       
-      let s = ImageEmbossGRPC.GRPCServer(logger: logger, threads: threads)
-      try await s.Run(host: host, port: port)
+      let embosser = NewImageEmbosser(
+        logger: logger
+      )
 
+      let server_opts = GRPCServerOptions(
+        host: host,
+        port: port,
+        threads: threads,
+        logger: logger,
+        tls_certificate: tls_certificate,
+        tls_key: tls_key,
+        verbose: verbose
+      )
+      
+      let server = GRPCServer(server_opts)
+      try await server.Run([embosser])
   }
 }
