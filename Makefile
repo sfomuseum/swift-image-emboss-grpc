@@ -11,3 +11,14 @@ protoc:
 server:
 	./.build/debug/image-emboss-grpc-server \
 		--log_file ./logs/image-emboss-grpc-server.log
+
+server-tls:
+	./.build/debug/image-emboss-grpc-server \
+		--log_file ./logs/image-emboss-grpc-server.log \
+		--tls_certificate ./tls/server.crt \
+		--tls_key ./tls/server.key
+
+tls:
+	openssl genrsa -out tls/server.key 4096
+	openssl req -new -key tls/server.key -out tls/server.csr -subj "/C=US/ST=State/L=City/O=Organization/CN=server"
+	openssl x509 -key tls/server.key -in tls/server.csr -out tls/server.crt -subj "/C=US/ST=State/L=City/O=Organization/CN=server" -req

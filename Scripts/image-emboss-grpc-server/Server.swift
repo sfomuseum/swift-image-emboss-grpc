@@ -40,6 +40,12 @@ struct ImageEmbossServer: AsyncParsableCommand {
     @Option(help: "Enable verbose logging")
     var verbose = false
     
+    @Option(help: "TLS certificate")
+    var tls_certificate: String?
+    
+    @Option(help: "TLS key")
+    var tls_key: String?
+    
   func run() async throws {
 
     let log_label = "org.sfomuseum.image-emboss-grpc-server"
@@ -50,6 +56,7 @@ struct ImageEmbossServer: AsyncParsableCommand {
       
       var puppy = Puppy()
 
+      /*
       if log_file != nil {
           
           let log_url = URL(fileURLWithPath: log_file!).absoluteURL
@@ -66,7 +73,8 @@ struct ImageEmbossServer: AsyncParsableCommand {
           
           puppy.add(fileRotation)
       }
- 
+       */
+      
       // See notes above
       
       let console = ConsoleLogger(log_label, logFormat: log_format)
@@ -87,7 +95,7 @@ struct ImageEmbossServer: AsyncParsableCommand {
       let logger = Logger(label: log_label)
       
       let s = ImageEmbossGRPC.GRPCServer(logger: logger, threads: threads)
-      try await s.Run(host: host, port: port)
+      try await s.Run(host: host, port: port, tls_certificate: tls_certificate, tls_key: tls_key)
 
   }
 }
