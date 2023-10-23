@@ -31,9 +31,6 @@ public class GRPCServer {
       }
 
         let embosser = ImageEmbosser(logger: self.logger, interceptors: ImageEmbosserServerInterceptorFactory())
-        
-        // To do: Enable support for TLS certificates
-        // https://github.com/sfomuseum/swift-text-emboss-grpc/issues/1
       
         var builder: Server.Builder
         

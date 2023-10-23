@@ -56,7 +56,6 @@ struct ImageEmbossServer: AsyncParsableCommand {
       
       var puppy = Puppy()
 
-      /*
       if log_file != nil {
           
           let log_url = URL(fileURLWithPath: log_file!).absoluteURL
@@ -73,7 +72,6 @@ struct ImageEmbossServer: AsyncParsableCommand {
           
           puppy.add(fileRotation)
       }
-       */
       
       // See notes above
       

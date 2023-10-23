@@ -8,13 +8,11 @@ protoc:
 		--grpc-swift_opt=Visibility=Public \
 		--grpc-swift_out=Sources/ImageEmbossGRPC/
 
-server:
-	./.build/debug/image-emboss-grpc-server \
-		--log_file ./logs/image-emboss-grpc-server.log
+debug:
+	./.build/debug/image-emboss-grpc-server
 
-server-tls:
+debug-tls:
 	./.build/debug/image-emboss-grpc-server \
-		--log_file ./logs/image-emboss-grpc-server.log \
 		--tls_certificate ./tls/server.crt \
 		--tls_key ./tls/server.key
 
