@@ -9,10 +9,12 @@ protoc:
 		--grpc-swift_out=Sources/ImageEmbossGRPC/
 
 debug:
-	./.build/debug/image-emboss-grpc-server
+	./.build/debug/image-emboss-grpc-server \
+		--logfile true
 
 debug-tls:
 	./.build/debug/image-emboss-grpc-server \
+		--logfile true \
 		--tls_certificate ./tls/server.crt \
 		--tls_key ./tls/server.key
 

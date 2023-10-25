@@ -1,25 +1,26 @@
 import ArgumentParser
 import ImageEmbossGRPC
 import GRPCServer
+import SFOMuseumLogger
 
 @available(macOS 14.0, iOS 17.0, tvOS 17.0, *)
 @main
 struct ImageEmbossServer: AsyncParsableCommand {
     
     @Option(help: "The host name to listen for new connections")
-    var host = "localhost"
+    var host: String = "localhost"
     
     @Option(help: "The port to listen on for new connections")
-    var port = 1234
+    var port: Int = 8080
     
     @Option(help: "The number of threads to use for the GRPC server")
-    var threads = 1
+    var threads: Int = 1
     
-    @Option(help: "Write logs to specific log file (optional)")
-    var log_file: String?
+    @Option(help: "Log events to system log files")
+    var logfile: Bool = false
     
     @Option(help: "Enable verbose logging")
-    var verbose = false
+    var verbose: Bool = false
     
     @Option(help: "The path to a TLS certificate to use for secure connections (optional)")
     var tls_certificate: String?
@@ -31,11 +32,14 @@ struct ImageEmbossServer: AsyncParsableCommand {
         
         let log_label = "org.sfomuseum.text-emboss-grpc-server"
         
-        let logger = try NewLogger(
-            log_label: log_label,
-            log_file: log_file,
+        let logger_opts = SFOMuseumLoggerOptions(
+            label: log_label,
+            console: true,
+            logfile: logfile,
             verbose: verbose
         )
+        
+        let logger = try NewSFOMuseumLogger(logger_opts)
         
         let embosser = NewImageEmbosser(
             logger: logger
