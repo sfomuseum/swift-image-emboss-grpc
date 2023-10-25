@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sfomuseum/swift-sfomuseum-logger.git",
       "state" : {
-        "revision" : "a49f3dfc9eae5d578da3d5e002b307fd51717c7a",
-        "version" : "0.0.1"
+        "revision" : "33e66f065671a135f3329bbce4cd89da5528fdc2",
+        "version" : "1.0.0"
       }
     }
   ],

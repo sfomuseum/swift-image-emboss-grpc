@@ -2,10 +2,6 @@
 
 A simple gRPC server wrapping the `sfomuseum/swift-image-emboss` package.
 
-## Important
-
-This package has only minimal error reporting and validation. It has no authentication or authorization hooks.
-
 ## Example
 
 Building the server.
@@ -27,7 +23,7 @@ OPTIONS:
   --host <host>           The host name to listen for new connections (default: localhost)
   --port <port>           The port to listen on for new connections (default: 1234)
   --threads <threads>     The number of threads to use for the GRPC server (default: 1)
-  --log_file <log_file>   Write logs to specific log file (optional)
+  --logfile <bool>        Log events to system log files (default: false)
   --verbose <verbose>     Enable verbose logging (default: false)
   --tls_certificate <tls_certificate>
                           The path to a TLS certificate to use for secure connections (optional)
@@ -54,14 +50,6 @@ _For example output have a look at [the examples in the sfomuseum/go-image-embos
 
 * [Sources/image-emboss-grpc-server/embosser.proto](Sources/image-emboss-grpc-server/embosser.proto)
 
-## Known-knowns
-
-### Logging
-
-Under the hood this package uses the [Puppy](https://github.com/sushichop/Puppy) library for logging to both the console and a rotating log file. There is an open ticket to (hopefully) address a problem where messages are only dispatched to the first logger. In this instance that means messages are dispatched to an optional log file and then the console meaning if you specify a `--log_file` flag logging message _will not_ be dispatched to the console.
-
-* https://github.com/sushichop/Puppy/issues/89
-
 ## See also
 
 * https://github.com/sfomuseum/swift-image-emboss
@@ -69,3 +57,4 @@ Under the hood this package uses the [Puppy](https://github.com/sushichop/Puppy)
 * https://github.com/sfomuseum/go-image-emboss
 * https://github.com/sfomuseum/swift-grpc-server
 * https://github.com/grpc/grpc-swift
+* https://github.com/sfomuseum/swift-sfomuseum-logger
