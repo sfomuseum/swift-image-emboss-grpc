@@ -11,7 +11,7 @@ final class ImageEmbosserServerInterceptorFactory: EmbosserServerInterceptorFact
     }
 }
 
-final class ImageEmbosserServerInterceptor: ServerInterceptor<EmbossImageRequest, EmbossImageResponse> {
+final class ImageEmbosserServerInterceptor: ServerInterceptor<EmbossImageRequest, EmbossImageResponse>, @unchecked Sendable {
     
     override func receive(
       _ part: GRPCServerRequestPart<EmbossImageRequest>,
