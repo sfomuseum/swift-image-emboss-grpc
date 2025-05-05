@@ -28,6 +28,9 @@ struct ImageEmbossServer: AsyncParsableCommand {
     @Option(help: "The path to a TLS key to use for secure connections (optional)")
     var tls_key: String?
     
+    @Option(help: "Sets the maximum message size in bytes the server may receive. If 0 then the swift-grpc defaults will be used.")
+    var max_receive_message_length = 0
+    
     func run() async throws {
         
         let log_label = "org.sfomuseum.text-emboss-grpc-server"
@@ -52,7 +55,8 @@ struct ImageEmbossServer: AsyncParsableCommand {
             logger: logger,
             tls_certificate: tls_certificate,
             tls_key: tls_key,
-            verbose: verbose
+            verbose: verbose,
+            max_receive_message_length: max_receive_message_length
         )
         
         let server = GRPCServer(server_opts)
