@@ -10,7 +10,8 @@ protoc:
 
 debug:
 	./.build/debug/image-emboss-grpc-server \
-		--logfile true
+		--logfile true \
+		--verbose true
 
 debug-tls:
 	./.build/debug/image-emboss-grpc-server \

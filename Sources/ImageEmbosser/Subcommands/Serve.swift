@@ -15,7 +15,7 @@ struct Serve: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Starts a image embosser server.")
     
     @Option(help: "The host name to listen for new connections")
-    var host: String = "localhost"
+    var host: String = "127.0.0.1"
     
     @Option(help: "The port to listen on")
     var port: Int = 8080
@@ -41,21 +41,20 @@ struct Serve: AsyncParsableCommand {
         )
         
         let logger = try NewSFOMuseumLogger(logger_opts)
-        
-        let service = ImageEmbosserService(logger: logger)
-        
+                
         let transport = HTTP2ServerTransport.Posix(
             address: .ipv4(host: self.host, port: self.port),
-            transportSecurity: .plaintext
+            transportSecurity: .plaintext,
         )
         
-        
+        let service = ImageEmbosserService(logger: logger)
         let server = GRPCServer(transport: transport, services: [service])
-        
+                
         try await withThrowingDiscardingTaskGroup { group in
+            // Why does this time out?
+            // let address = try await transport.listeningAddress
+            logger.info("listening for requests on \(self.host):\(self.port)")
             group.addTask { try await server.serve() }
-            let address = try await transport.listeningAddress
-            print("server listening on \(address)")
         }
     }
 }
@@ -85,7 +84,7 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
             do {
                 try FileManager.default.removeItem(at: temporaryFileURL)
             } catch {
-                // self.logger.error("Failed to remove temporary file at \(temporaryFileURL), \(error)")
+                self.logger.error("Failed to remove temporary file at \(temporaryFileURL), \(error)")
             }
             
         }
@@ -96,7 +95,7 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
         
         switch im_rsp {
         case .failure(let error):
-            // self.logger.error("Failed to load image from \(temporaryFileURL), \(error)")
+            self.logger.error("Failed to load image from \(temporaryFileURL), \(error)")
             throw(error)
         case .success(let im):
             ci_im = im
@@ -107,7 +106,7 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
         
         switch rsp {
         case .failure(let error):
-            // self.logger.error("Failed to process image from \(temporaryFileURL), \(error)")
+            self.logger.error("Failed to process image from \(temporaryFileURL), \(error)")
             throw(error)
         case .success(let im_rsp):
             
@@ -119,21 +118,34 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
                 
                 switch png_rsp {
                 case .failure(let png_err):
-                    // self.logger.error("Failed to derive PNG from from \(temporaryFileURL) (processed), \(png_err)")
+                    self.logger.error("Failed to derive PNG from from \(temporaryFileURL) (processed), \(png_err)")
                     throw(png_err)
                 case .success(let png_data):
                     data.append(png_data)
                 }
             }
+                        
+            self.logger.info("Successfully processed \(temporaryFileURL) segments \(data.count)")
             
-            // self.logger.info("Successfully processed \(temporaryFileURL)")
-            
-            return ImageEmbosser_EmbossImageResponse.with{
+            let rsp = ImageEmbosser_EmbossImageResponse.with{
                 $0.filename = request.filename
                 $0.body = data
                 $0.combined = request.combined
             }
             
+            /*
+            var str: String
+            
+            do {
+                str = try rsp.jsonString()
+                print("WTF \(str.count)")
+
+            } catch (let error){
+                print(error)
+            }
+            */
+            
+            return rsp
         }
         
     }
