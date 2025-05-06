@@ -4,13 +4,8 @@
 import PackageDescription
 
 let package = Package(
-    name: "ImageEmbossGRPC",
+    name: "ImageEmbosser",
     platforms: [.macOS(.v15)],
-    products: [
-        .library(
-            name: "ImageEmbossGRPC",
-            targets: ["ImageEmbossGRPC"]),
-    ],
     dependencies: [
         .package(url: "https://github.com/grpc/grpc-swift.git", from: "2.0.0"),
            .package(url: "https://github.com/grpc/grpc-swift-protobuf.git", from: "1.0.0"),
@@ -25,32 +20,19 @@ let package = Package(
         // .package(path: "/usr/local/sfomuseum/swift-sfomuseum-logger")
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "ImageEmbossGRPC",
-            dependencies: [
-                .product(name: "GRPCCore", package: "grpc-swift"),
-                .product(name: "GRPCNIOTransportHTTP2", package: "grpc-swift-nio-transport"),
-                .product(name: "GRPCProtobuf", package: "grpc-swift-protobuf"),
-                .product(name: "Logging", package: "swift-log"),
-
-                .product(name: "ImageEmboss", package: "swift-image-emboss"),
-                .product(name: "CoreImageImage", package: "swift-coreimage-image"),
-            ],
-            exclude: ["embosser.proto"]
-        ),
         .executableTarget(
-            name: "image-emboss-grpc-server",
+            name: "ImageEmbosser",
             dependencies: [
-                "ImageEmbossGRPC",
                 .product(name: "GRPCCore", package: "grpc-swift"),
                 .product(name: "GRPCNIOTransportHTTP2", package: "grpc-swift-nio-transport"),
                 .product(name: "GRPCProtobuf", package: "grpc-swift-protobuf"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "ImageEmboss", package: "swift-image-emboss"),
             ],
-            path: "Scripts"
+            plugins: [
+              .plugin(name: "GRPCProtobufGenerator", package: "grpc-swift-protobuf")
+            ],
+            // path: "Scripts"
 	)
     ]
 )

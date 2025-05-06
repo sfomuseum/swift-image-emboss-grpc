@@ -6,7 +6,7 @@ import CoreImage
 import CoreImageImage
 
 @available(macOS 15.0, *)
-struct Server: ImageEmbosser.SimpleServiceProtocol {
+struct ImageEmbosserServer: ImageEmbosser.SimpleServiceProtocol {
     
     func embossImage(
         
@@ -53,7 +53,7 @@ struct Server: ImageEmbosser.SimpleServiceProtocol {
         switch rsp {
         case .failure(let error):
             // self.logger.error("Failed to process image from \(temporaryFileURL), \(error)")
-            throw(Errors.processError)
+            throw(error)
         case .success(let im_rsp):
             
             var data = [Data]()
