@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = "github.com/sfomuseum/go-image-emboss/grpc";
 
-service Embosser {
+service ImageEmbosser {
 	rpc EmbossImage(EmbossImageRequest) returns (EmbossImageResponse) {}
 }
 
