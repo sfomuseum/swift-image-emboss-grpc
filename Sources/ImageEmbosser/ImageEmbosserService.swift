@@ -6,7 +6,7 @@ import CoreImage
 import CoreImageImage
 
 @available(macOS 15.0, *)
-struct ImageEmbosserServer: ImageEmbosser.SimpleServiceProtocol {
+struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
     
     func embossImage(
         

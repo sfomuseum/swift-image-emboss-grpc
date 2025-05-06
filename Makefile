@@ -1,12 +1,12 @@
 protoc:
-	protoc Sources/ImageEmbossGRPC/embosser.proto \
-		--proto_path=Sources/ImageEmbossGRPC/ \
+	protoc Sources/Protos/image_embosser/image_embosser.proto \
+		--proto_path=Sources/Protos/ \
 		--plugin=/opt/homebrew/bin/protoc-gen-swift \
 		--swift_opt=Visibility=Public \
-		--swift_out=Sources/ImageEmbossGRPC/ \
+		--swift_out=Sources/ImageEmbosser/ \
 		--plugin=/opt/homebrew/bin/protoc-gen-grpc-swift \
 		--grpc-swift_opt=Visibility=Public \
-		--grpc-swift_out=Sources/ImageEmbossGRPC/
+		--grpc-swift_out=Sources/ImageEmbosser/
 
 debug:
 	./.build/debug/image-emboss-grpc-server \

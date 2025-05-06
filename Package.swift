@@ -11,8 +11,8 @@ let package = Package(
            .package(url: "https://github.com/grpc/grpc-swift-protobuf.git", from: "1.0.0"),
            .package(url: "https://github.com/grpc/grpc-swift-nio-transport.git", from: "1.0.0"),
         
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
-        .package(url: "https://github.com/apple/swift-log.git", from: "1.6.3"),
+        // .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
+        // .package(url: "https://github.com/apple/swift-log.git", from: "1.6.3"),
 
         .package(url: "https://github.com/sfomuseum/swift-image-emboss", from: "0.0.5"),
         .package(url: "https://github.com/sfomuseum/swift-coreimage-image.git", from: "1.1.0"),
@@ -26,8 +26,9 @@ let package = Package(
                 .product(name: "GRPCCore", package: "grpc-swift"),
                 .product(name: "GRPCNIOTransportHTTP2", package: "grpc-swift-nio-transport"),
                 .product(name: "GRPCProtobuf", package: "grpc-swift-protobuf"),
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                // .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "ImageEmboss", package: "swift-image-emboss"),
+                .product(name: "CoreImageImage", package: "swift-coreimage-image"),
             ],
             plugins: [
               .plugin(name: "GRPCProtobufGenerator", package: "grpc-swift-protobuf")
