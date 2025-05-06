@@ -1,6 +1,15 @@
 {
-  "originHash" : "7702932553f1f348e77b199b64f3283817bd8deae49d6c15dcb5171712a216ad",
+  "originHash" : "df24f82358bf82be263be7e3068dd5dc0fe80d5b5bc2fa966b9490d221860219",
   "pins" : [
+    {
+      "identity" : "cocoalumberjack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
+      "state" : {
+        "revision" : "4b8714a7fb84d42393314ce897127b3939885ec3",
+        "version" : "3.8.5"
+      }
+    },
     {
       "identity" : "grpc-swift",
       "kind" : "remoteSourceControl",
@@ -101,6 +110,15 @@
       }
     },
     {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "3d8596ed08bd13520157f0355e35caed215ffbfa",
+        "version" : "1.6.3"
+      }
+    },
+    {
       "identity" : "swift-nio",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio.git",
@@ -161,6 +179,15 @@
       "state" : {
         "revision" : "d72aed98f8253ec1aa9ea1141e28150f408cf17f",
         "version" : "1.29.0"
+      }
+    },
+    {
+      "identity" : "swift-sfomuseum-logger",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sfomuseum/swift-sfomuseum-logger.git",
+      "state" : {
+        "revision" : "de22fd9a5bd32e7a28d318ce4505b343b6bbd4dc",
+        "version" : "1.0.1"
       }
     },
     {
