@@ -1,16 +1,19 @@
+import GRPCCore
+
 import Foundation
 import ImageEmboss
 import CoreImage
 import CoreImageImage
 
-struct Server: ImageEmbosser_Server.SimpleServiceProtocol {
+@available(macOS 15.0, *)
+struct Server: ImageEmbosser.SimpleServiceProtocol {
     
     func embossImage(
         
-        request: ImageEmbosser_EmbossImageRequest,
+        request: EmbossImageRequest,
         context: ServerContext
         
-    ) async throws -> ImageEmbosser_EmbossImageResponse {
+    ) async throws -> EmbossImageResponse {
         
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                         isDirectory: true)
@@ -70,7 +73,7 @@ struct Server: ImageEmbosser_Server.SimpleServiceProtocol {
             
             // self.logger.info("Successfully processed \(temporaryFileURL)")
             
-            return ImageEmbosser_EmbossImageResponse.with{
+            return EmbossImageResponse.with{
                 $0.filename = request.filename
                 $0.body = data
                 $0.combined = request.combined
@@ -79,3 +82,4 @@ struct Server: ImageEmbosser_Server.SimpleServiceProtocol {
         }
         
     }
+}

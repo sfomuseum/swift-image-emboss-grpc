@@ -1,21 +1,30 @@
 {
   "pins" : [
     {
-      "identity" : "cocoalumberjack",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
-      "state" : {
-        "revision" : "4b8714a7fb84d42393314ce897127b3939885ec3",
-        "version" : "3.8.5"
-      }
-    },
-    {
       "identity" : "grpc-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/grpc/grpc-swift.git",
       "state" : {
-        "revision" : "5c58b63ca09e787f2c95d6191a05a3193373a352",
-        "version" : "1.25.0"
+        "revision" : "c4d6281784f50bf2e60d3af45e83be1194056062",
+        "version" : "2.1.2"
+      }
+    },
+    {
+      "identity" : "grpc-swift-nio-transport",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/grpc/grpc-swift-nio-transport.git",
+      "state" : {
+        "revision" : "9bd1b5b5e31f3fae497e84c2806777899183679b",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "grpc-swift-protobuf",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/grpc/grpc-swift-protobuf.git",
+      "state" : {
+        "revision" : "5edbc18f5198887e8b2e64bddb60f4fe57acaaf4",
+        "version" : "1.2.0"
       }
     },
     {
@@ -61,15 +70,6 @@
       "state" : {
         "revision" : "f4788377a03a9bf5bb5cb7bace732b70192941ab",
         "version" : "1.1.0"
-      }
-    },
-    {
-      "identity" : "swift-grpc-server",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sfomuseum/swift-grpc-server.git",
-      "state" : {
-        "revision" : "d324e400a8796d2121f5fe1b202c33a92ce853c5",
-        "version" : "0.0.4"
       }
     },
     {
@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio-ssl.git",
       "state" : {
-        "revision" : "320bd978cceb8e88c125dcbb774943a92f6286e9",
-        "version" : "2.25.0"
+        "revision" : "6df102a39c8da5fdc2eae29a0f63546d660866fc",
+        "version" : "2.30.0"
       }
     },
     {
@@ -169,15 +169,6 @@
       "state" : {
         "revision" : "d72aed98f8253ec1aa9ea1141e28150f408cf17f",
         "version" : "1.29.0"
-      }
-    },
-    {
-      "identity" : "swift-sfomuseum-logger",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sfomuseum/swift-sfomuseum-logger.git",
-      "state" : {
-        "revision" : "de22fd9a5bd32e7a28d318ce4505b343b6bbd4dc",
-        "version" : "1.0.1"
       }
     },
     {
