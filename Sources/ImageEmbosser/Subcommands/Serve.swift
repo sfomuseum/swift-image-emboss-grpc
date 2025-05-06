@@ -26,6 +26,8 @@ struct Serve: AsyncParsableCommand {
     @Option(help: "Enable verbose logging")
     var verbose: Bool = false
     
+    // TBD... where does this get set?
+    
     @Option(help: "Sets the maximum message size in bytes the server may receive. If 0 then the swift-grpc defaults will be used.")
     var max_receive_message_length = 0
     
