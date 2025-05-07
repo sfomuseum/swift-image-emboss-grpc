@@ -50,14 +50,21 @@ struct Serve: AsyncParsableCommand {
         )
         
         let service = ImageEmbosserService(logger: logger)
-        let server = GRPCServer(transport: transport, services: [service])
-                
+        let server = GRPCServer(
+            transport: transport,
+            services: [service],
+            interceptors: [
+                RemoteAddressInterceptor(logger: logger)
+            ],
+        )
+                        
         try await withThrowingDiscardingTaskGroup { group in
             // Why does this time out?
             // let address = try await transport.listeningAddress
             logger.info("listening for requests on \(self.host):\(self.port)")
             group.addTask { try await server.serve() }
         }
+
     }
 }
 
@@ -70,6 +77,8 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
     }
     
     func embossImage(request: ImageEmbosser_EmbossImageRequest, context: GRPCCore.ServerContext) async throws -> ImageEmbosser_EmbossImageResponse {
+                
+        logger.info("EMBOSS \(context.remotePeer)")
         
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                         isDirectory: true)
@@ -129,27 +138,35 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
                         
             self.logger.info("Successfully processed \(temporaryFileURL) segments \(data.count)")
             
-            let rsp = ImageEmbosser_EmbossImageResponse.with{
+            return ImageEmbosser_EmbossImageResponse.with{
                 $0.filename = request.filename
                 $0.body = data
                 $0.combined = request.combined
             }
-            
-            /*
-            var str: String
-            
-            do {
-                str = try rsp.jsonString()
-                print("WTF \(str.count)")
-
-            } catch (let error){
-                print(error)
-            }
-            */
-            
-            return rsp
         }
         
     }
 }
 
+struct RemoteAddressInterceptor: ServerInterceptor {
+
+    internal var logger: Logger
+    
+    init(logger: Logger){
+        self.logger = logger
+    }
+    
+    func intercept<Input: Sendable, Output: Sendable>(
+    request: StreamingServerRequest<Input>,
+    context: ServerContext,
+    next: @Sendable (
+      _ request: StreamingServerRequest<Input>,
+      _ context: ServerContext
+    ) async throws -> StreamingServerResponse<Output>
+  ) async throws -> StreamingServerResponse<Output> {
+             
+      self.logger.info("INTERCEPTOR")
+      
+    return try await next(request, context)
+  }
+}

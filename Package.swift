@@ -5,7 +5,13 @@ import PackageDescription
 
 let package = Package(
     name: "ImageEmbosser",
-    platforms: [.macOS(.v15)],
+    platforms: [
+        .macOS(.v15),
+        .iOS(.v18),
+        .tvOS(.v18),
+        .watchOS(.v11),
+        .visionOS(.v2),
+    ],
     dependencies: [
         .package(url: "https://github.com/grpc/grpc-swift.git", from: "2.0.0"),
         .package(url: "https://github.com/grpc/grpc-swift-protobuf.git", from: "1.0.0"),
@@ -32,7 +38,6 @@ let package = Package(
             plugins: [
               .plugin(name: "GRPCProtobufGenerator", package: "grpc-swift-protobuf")
             ],
-            // path: "Scripts"
 	)
     ]
 )
