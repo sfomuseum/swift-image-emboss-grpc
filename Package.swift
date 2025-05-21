@@ -7,7 +7,7 @@ let package = Package(
     name: "ImageEmbosser",
     platforms: [.macOS(.v15)],
     dependencies: [
-        .package(url: "https://github.com/grpc/grpc-swift.git", from: "2.0.0"),
+        .package(url: "https://github.com/grpc/grpc-swift.git", from: "2.2.1"),
         .package(url: "https://github.com/grpc/grpc-swift-protobuf.git", from: "1.0.0"),
         .package(url: "https://github.com/grpc/grpc-swift-nio-transport.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
