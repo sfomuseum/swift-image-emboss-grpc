@@ -5,7 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "ImageEmbosser",
-    platforms: [.macOS(.v15)],
+    platforms: [
+        .macOS(.v15),
+        .iOS(.v18)
+    ],
     dependencies: [
         .package(url: "https://github.com/grpc/grpc-swift.git", from: "2.2.1"),
         .package(url: "https://github.com/grpc/grpc-swift-protobuf.git", from: "1.0.0"),
