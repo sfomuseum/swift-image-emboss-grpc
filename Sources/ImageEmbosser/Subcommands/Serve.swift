@@ -25,8 +25,12 @@ struct Serve: AsyncParsableCommand {
     
     @Option(help: "Enable verbose logging")
     var verbose: Bool = false
+        
+    @Option(help: "The TLS certificate chain to use for encrypted connections")
+    var tls_certificate: String = ""
     
-    // TBD... where does this get set?
+    @Option(help: "The TLS private key to use for encrypted connections")
+    var tls_key: String = ""
     
     @Option(help: "Sets the maximum message size in bytes the server may receive. If 0 then the swift-grpc defaults will be used.")
     var max_receive_message_length = 0
@@ -43,10 +47,25 @@ struct Serve: AsyncParsableCommand {
         )
         
         let logger = try NewSFOMuseumLogger(logger_opts)
-                
+               
+        var transportSecurity = HTTP2ServerTransport.Posix.TransportSecurity.plaintext
+        
+        // https://github.com/grpc/grpc-swift/issues/2219
+        
+        if tls_certificate != "" && tls_key != ""  {
+            
+            let certSource:  TLSConfig.CertificateSource   = .file(path: tls_certificate, format: .pem)
+            let keySource:   TLSConfig.PrivateKeySource    = .file(path: tls_key, format: .pem)
+            
+            transportSecurity = HTTP2ServerTransport.Posix.TransportSecurity.tls(
+                certificateChain: [ certSource ],
+                privateKey: keySource,
+            )
+        }
+            
         let transport = HTTP2ServerTransport.Posix(
             address: .ipv4(host: self.host, port: self.port),
-            transportSecurity: .plaintext,
+            transportSecurity: transportSecurity,
         )
         
         let service = ImageEmbosserService(logger: logger)
@@ -63,13 +82,16 @@ struct Serve: AsyncParsableCommand {
 
 struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
     
-    let logger: Logger
+    var logger: Logger
     
     init(logger: Logger) {
         self.logger = logger
     }
     
-    func embossImage(request: ImageEmbosser_EmbossImageRequest, context: GRPCCore.ServerContext) async throws -> ImageEmbosser_EmbossImageResponse {
+    func  embossImage(request: ImageEmbosser_EmbossImageRequest, context: GRPCCore.ServerContext) async throws -> ImageEmbosser_EmbossImageResponse {
+        
+        var metadata: Logger.Metadata
+        metadata = [ "remote": "\(context.remotePeer)" ]
         
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                         isDirectory: true)
@@ -81,14 +103,16 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
         
         try request.body.write(to: temporaryFileURL,
                                options: .atomic)
-        
+                
         defer {
             do {
                 try FileManager.default.removeItem(at: temporaryFileURL)
             } catch {
-                self.logger.error("Failed to remove temporary file at \(temporaryFileURL), \(error)")
+                self.logger.error(
+                    "Failed to remove temporary file at \(temporaryFileURL), \(error)",
+                    metadata: metadata,
+                )
             }
-            
         }
         
         var ci_im: CIImage
@@ -97,7 +121,10 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
         
         switch im_rsp {
         case .failure(let error):
-            self.logger.error("Failed to load image from \(temporaryFileURL), \(error)")
+            self.logger.error(
+                "Failed to load image from \(temporaryFileURL), \(error)",
+                metadata: metadata
+                )
             throw(error)
         case .success(let im):
             ci_im = im
@@ -108,7 +135,10 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
         
         switch rsp {
         case .failure(let error):
-            self.logger.error("Failed to process image from \(temporaryFileURL), \(error)")
+            self.logger.error(
+                "Failed to process image from \(temporaryFileURL), \(error)",
+                metadata: metadata
+            )
             throw(error)
         case .success(let im_rsp):
             
@@ -120,32 +150,26 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
                 
                 switch png_rsp {
                 case .failure(let png_err):
-                    self.logger.error("Failed to derive PNG from from \(temporaryFileURL) (processed), \(png_err)")
+                    self.logger.error(
+                        "Failed to derive PNG from from \(temporaryFileURL) (processed), \(png_err)",
+                        metadata: metadata
+                    )
                     throw(png_err)
                 case .success(let png_data):
                     data.append(png_data)
                 }
             }
                         
-            self.logger.info("Successfully processed \(temporaryFileURL) segments \(data.count)")
+            self.logger.info(
+                "Successfully processed \(temporaryFileURL) segments \(data.count)",
+                metadata: metadata
+            )
             
             let rsp = ImageEmbosser_EmbossImageResponse.with{
                 $0.filename = request.filename
                 $0.body = data
                 $0.combined = request.combined
             }
-            
-            /*
-            var str: String
-            
-            do {
-                str = try rsp.jsonString()
-                print("WTF \(str.count)")
-
-            } catch (let error){
-                print(error)
-            }
-            */
             
             return rsp
         }
