@@ -49,7 +49,7 @@ _Note: The `--max_receive_message_length` flag is not implemented yet._
 Running the server.
 
 ```
-$> ./.build/debug/image-emboss-grpc-server 
+$> ./.build/debug/image-emboss-grpc-server
 2025-05-06T15:36:58-0700 info org.sfomuseum.image-emboss-grpc-server : [image_emboss_grpc_server] listening for requests on 127.0.0.1:8080
 ```
 
@@ -92,7 +92,7 @@ $> ./.build/debug/image-emboss-grpc-server client --image ./fixtures/1763389317_
 
 ### embosser.proto
 
-* [Sources/image-emboss-grpc-server/embosser.proto](Sources/image-emboss-grpc-server/embosser.proto)
+* [Sources/Protos/image-embosser/image_embosser.proto](Sources/Protos/image-embosser/image_embosser.proto)
 
 ## See also
 
