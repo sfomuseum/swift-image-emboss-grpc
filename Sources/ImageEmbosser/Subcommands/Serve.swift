@@ -66,6 +66,11 @@ struct Serve: AsyncParsableCommand {
         let transport = HTTP2ServerTransport.Posix(
             address: .ipv4(host: self.host, port: self.port),
             transportSecurity: transportSecurity,
+            config: .defaults { config in
+                if max_receive_message_length > 0 {
+                    config.rpc.maxRequestPayloadSize = max_receive_message_length
+                }
+              }
         )
         
         let service = ImageEmbosserService(logger: logger)
