@@ -32,10 +32,6 @@ let package = Package(
                 .product(name: "CoreImageImage", package: "swift-coreimage-image"),
                 .product(name: "SFOMuseumLogger", package: "swift-sfomuseum-logger"),
             ],
-            plugins: [
-              // .plugin(name: "GRPCProtobufGenerator", package: "grpc-swift-protobuf")
-            ],
-            // path: "Scripts"
-	)
+        )
     ]
 )
