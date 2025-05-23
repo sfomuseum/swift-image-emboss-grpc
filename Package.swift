@@ -33,7 +33,7 @@ let package = Package(
                 .product(name: "SFOMuseumLogger", package: "swift-sfomuseum-logger"),
             ],
             plugins: [
-              .plugin(name: "GRPCProtobufGenerator", package: "grpc-swift-protobuf")
+              // .plugin(name: "GRPCProtobufGenerator", package: "grpc-swift-protobuf")
             ],
             // path: "Scripts"
 	)

@@ -80,7 +80,7 @@ struct Serve: AsyncParsableCommand {
     }
 }
 
-struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
+struct ImageEmbosserService: OrgSfomuseumImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
     
     var logger: Logger
     
@@ -88,7 +88,7 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
         self.logger = logger
     }
     
-    func  embossImage(request: ImageEmbosser_EmbossImageRequest, context: GRPCCore.ServerContext) async throws -> ImageEmbosser_EmbossImageResponse {
+    func  embossImage(request: OrgSfomuseumImageEmbosser_EmbossImageRequest, context: GRPCCore.ServerContext) async throws -> OrgSfomuseumImageEmbosser_EmbossImageResponse {
         
         var metadata: Logger.Metadata
         metadata = [ "remote": "\(context.remotePeer)" ]
@@ -165,7 +165,7 @@ struct ImageEmbosserService: ImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
                 metadata: metadata
             )
             
-            let rsp = ImageEmbosser_EmbossImageResponse.with{
+            let rsp = OrgSfomuseumImageEmbosser_EmbossImageResponse.with{
                 $0.filename = request.filename
                 $0.body = data
                 $0.combined = request.combined

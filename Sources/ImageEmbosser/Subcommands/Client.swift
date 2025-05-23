@@ -54,9 +54,9 @@ struct Client: AsyncParsableCommand {
                         
             logger.info("Emboss image \(image_basename)")
             
-            let embosser = ImageEmbosser_ImageEmbosser.Client(wrapping: client)
+            let embosser = OrgSfomuseumImageEmbosser_ImageEmbosser.Client(wrapping: client)
             
-            var req = ImageEmbosser_EmbossImageRequest()
+            var req = OrgSfomuseumImageEmbosser_EmbossImageRequest()
             req.filename = image_basename
             req.body = body
             req.combined = combined

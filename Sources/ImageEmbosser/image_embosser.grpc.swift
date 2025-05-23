@@ -10,27 +10,27 @@
 import GRPCCore
 import GRPCProtobuf
 
-// MARK: - ImageEmbosser
+// MARK: - org_sfomuseum_image_embosser.ImageEmbosser
 
-/// Namespace containing generated types for the "ImageEmbosser" service.
-public enum ImageEmbosser {
-    /// Service descriptor for the "ImageEmbosser" service.
-    public static let descriptor = GRPCCore.ServiceDescriptor(fullyQualifiedService: "ImageEmbosser")
+/// Namespace containing generated types for the "org_sfomuseum_image_embosser.ImageEmbosser" service.
+public enum OrgSfomuseumImageEmbosser_ImageEmbosser {
+    /// Service descriptor for the "org_sfomuseum_image_embosser.ImageEmbosser" service.
+    public static let descriptor = GRPCCore.ServiceDescriptor(fullyQualifiedService: "org_sfomuseum_image_embosser.ImageEmbosser")
     /// Namespace for method metadata.
     public enum Method {
         /// Namespace for "EmbossImage" metadata.
         public enum EmbossImage {
             /// Request type for "EmbossImage".
-            public typealias Input = EmbossImageRequest
+            public typealias Input = OrgSfomuseumImageEmbosser_EmbossImageRequest
             /// Response type for "EmbossImage".
-            public typealias Output = EmbossImageResponse
+            public typealias Output = OrgSfomuseumImageEmbosser_EmbossImageResponse
             /// Descriptor for "EmbossImage".
             public static let descriptor = GRPCCore.MethodDescriptor(
-                service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "ImageEmbosser"),
+                service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "org_sfomuseum_image_embosser.ImageEmbosser"),
                 method: "EmbossImage"
             )
         }
-        /// Descriptors for all methods in the "ImageEmbosser" service.
+        /// Descriptors for all methods in the "org_sfomuseum_image_embosser.ImageEmbosser" service.
         public static let descriptors: [GRPCCore.MethodDescriptor] = [
             EmbossImage.descriptor
         ]
@@ -38,14 +38,14 @@ public enum ImageEmbosser {
 }
 
 extension GRPCCore.ServiceDescriptor {
-    /// Service descriptor for the "ImageEmbosser" service.
-    public static let ImageEmbosser = GRPCCore.ServiceDescriptor(fullyQualifiedService: "ImageEmbosser")
+    /// Service descriptor for the "org_sfomuseum_image_embosser.ImageEmbosser" service.
+    public static let orgSfomuseumImageEmbosser_ImageEmbosser = GRPCCore.ServiceDescriptor(fullyQualifiedService: "org_sfomuseum_image_embosser.ImageEmbosser")
 }
 
-// MARK: ImageEmbosser (server)
+// MARK: org_sfomuseum_image_embosser.ImageEmbosser (server)
 
-extension ImageEmbosser {
-    /// Streaming variant of the service protocol for the "ImageEmbosser" service.
+extension OrgSfomuseumImageEmbosser_ImageEmbosser {
+    /// Streaming variant of the service protocol for the "org_sfomuseum_image_embosser.ImageEmbosser" service.
     ///
     /// This protocol is the lowest-level of the service protocols generated for this service
     /// giving you the most flexibility over the implementation of your service. This comes at
@@ -59,70 +59,70 @@ extension ImageEmbosser {
         /// Handle the "EmbossImage" method.
         ///
         /// - Parameters:
-        ///   - request: A streaming request of `EmbossImageRequest` messages.
+        ///   - request: A streaming request of `OrgSfomuseumImageEmbosser_EmbossImageRequest` messages.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        /// - Returns: A streaming response of `EmbossImageResponse` messages.
+        /// - Returns: A streaming response of `OrgSfomuseumImageEmbosser_EmbossImageResponse` messages.
         func embossImage(
-            request: GRPCCore.StreamingServerRequest<EmbossImageRequest>,
+            request: GRPCCore.StreamingServerRequest<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
             context: GRPCCore.ServerContext
-        ) async throws -> GRPCCore.StreamingServerResponse<EmbossImageResponse>
+        ) async throws -> GRPCCore.StreamingServerResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse>
     }
 
-    /// Service protocol for the "ImageEmbosser" service.
+    /// Service protocol for the "org_sfomuseum_image_embosser.ImageEmbosser" service.
     ///
     /// This protocol is higher level than ``StreamingServiceProtocol`` but lower level than
     /// the ``SimpleServiceProtocol``, it provides access to request and response metadata and
     /// trailing response metadata. If you don't need these then consider using
     /// the ``SimpleServiceProtocol``. If you need fine grained control over your RPCs then
     /// use ``StreamingServiceProtocol``.
-    public protocol ServiceProtocol: ImageEmbosser.StreamingServiceProtocol {
+    public protocol ServiceProtocol: OrgSfomuseumImageEmbosser_ImageEmbosser.StreamingServiceProtocol {
         /// Handle the "EmbossImage" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `EmbossImageRequest` message.
+        ///   - request: A request containing a single `OrgSfomuseumImageEmbosser_EmbossImageRequest` message.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        /// - Returns: A response containing a single `EmbossImageResponse` message.
+        /// - Returns: A response containing a single `OrgSfomuseumImageEmbosser_EmbossImageResponse` message.
         func embossImage(
-            request: GRPCCore.ServerRequest<EmbossImageRequest>,
+            request: GRPCCore.ServerRequest<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
             context: GRPCCore.ServerContext
-        ) async throws -> GRPCCore.ServerResponse<EmbossImageResponse>
+        ) async throws -> GRPCCore.ServerResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse>
     }
 
-    /// Simple service protocol for the "ImageEmbosser" service.
+    /// Simple service protocol for the "org_sfomuseum_image_embosser.ImageEmbosser" service.
     ///
     /// This is the highest level protocol for the service. The API is the easiest to use but
     /// doesn't provide access to request or response metadata. If you need access to these
     /// then use ``ServiceProtocol`` instead.
-    public protocol SimpleServiceProtocol: ImageEmbosser.ServiceProtocol {
+    public protocol SimpleServiceProtocol: OrgSfomuseumImageEmbosser_ImageEmbosser.ServiceProtocol {
         /// Handle the "EmbossImage" method.
         ///
         /// - Parameters:
-        ///   - request: A `EmbossImageRequest` message.
+        ///   - request: A `OrgSfomuseumImageEmbosser_EmbossImageRequest` message.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        /// - Returns: A `EmbossImageResponse` to respond with.
+        /// - Returns: A `OrgSfomuseumImageEmbosser_EmbossImageResponse` to respond with.
         func embossImage(
-            request: EmbossImageRequest,
+            request: OrgSfomuseumImageEmbosser_EmbossImageRequest,
             context: GRPCCore.ServerContext
-        ) async throws -> EmbossImageResponse
+        ) async throws -> OrgSfomuseumImageEmbosser_EmbossImageResponse
     }
 }
 
 // Default implementation of 'registerMethods(with:)'.
-extension ImageEmbosser.StreamingServiceProtocol {
+extension OrgSfomuseumImageEmbosser_ImageEmbosser.StreamingServiceProtocol {
     public func registerMethods<Transport>(with router: inout GRPCCore.RPCRouter<Transport>) where Transport: GRPCCore.ServerTransport {
         router.registerHandler(
-            forMethod: ImageEmbosser.Method.EmbossImage.descriptor,
-            deserializer: GRPCProtobuf.ProtobufDeserializer<EmbossImageRequest>(),
-            serializer: GRPCProtobuf.ProtobufSerializer<EmbossImageResponse>(),
+            forMethod: OrgSfomuseumImageEmbosser_ImageEmbosser.Method.EmbossImage.descriptor,
+            deserializer: GRPCProtobuf.ProtobufDeserializer<OrgSfomuseumImageEmbosser_EmbossImageRequest>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<OrgSfomuseumImageEmbosser_EmbossImageResponse>(),
             handler: { request, context in
                 try await self.embossImage(
                     request: request,
@@ -134,11 +134,11 @@ extension ImageEmbosser.StreamingServiceProtocol {
 }
 
 // Default implementation of streaming methods from 'StreamingServiceProtocol'.
-extension ImageEmbosser.ServiceProtocol {
+extension OrgSfomuseumImageEmbosser_ImageEmbosser.ServiceProtocol {
     public func embossImage(
-        request: GRPCCore.StreamingServerRequest<EmbossImageRequest>,
+        request: GRPCCore.StreamingServerRequest<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
         context: GRPCCore.ServerContext
-    ) async throws -> GRPCCore.StreamingServerResponse<EmbossImageResponse> {
+    ) async throws -> GRPCCore.StreamingServerResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse> {
         let response = try await self.embossImage(
             request: GRPCCore.ServerRequest(stream: request),
             context: context
@@ -148,12 +148,12 @@ extension ImageEmbosser.ServiceProtocol {
 }
 
 // Default implementation of methods from 'ServiceProtocol'.
-extension ImageEmbosser.SimpleServiceProtocol {
+extension OrgSfomuseumImageEmbosser_ImageEmbosser.SimpleServiceProtocol {
     public func embossImage(
-        request: GRPCCore.ServerRequest<EmbossImageRequest>,
+        request: GRPCCore.ServerRequest<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
         context: GRPCCore.ServerContext
-    ) async throws -> GRPCCore.ServerResponse<EmbossImageResponse> {
-        return GRPCCore.ServerResponse<EmbossImageResponse>(
+    ) async throws -> GRPCCore.ServerResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse> {
+        return GRPCCore.ServerResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse>(
             message: try await self.embossImage(
                 request: request.message,
                 context: context
@@ -163,10 +163,10 @@ extension ImageEmbosser.SimpleServiceProtocol {
     }
 }
 
-// MARK: ImageEmbosser (client)
+// MARK: org_sfomuseum_image_embosser.ImageEmbosser (client)
 
-extension ImageEmbosser {
-    /// Generated client protocol for the "ImageEmbosser" service.
+extension OrgSfomuseumImageEmbosser_ImageEmbosser {
+    /// Generated client protocol for the "org_sfomuseum_image_embosser.ImageEmbosser" service.
     ///
     /// You don't need to implement this protocol directly, use the generated
     /// implementation, ``Client``.
@@ -174,24 +174,24 @@ extension ImageEmbosser {
         /// Call the "EmbossImage" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `EmbossImageRequest` message.
-        ///   - serializer: A serializer for `EmbossImageRequest` messages.
-        ///   - deserializer: A deserializer for `EmbossImageResponse` messages.
+        ///   - request: A request containing a single `OrgSfomuseumImageEmbosser_EmbossImageRequest` message.
+        ///   - serializer: A serializer for `OrgSfomuseumImageEmbosser_EmbossImageRequest` messages.
+        ///   - deserializer: A deserializer for `OrgSfomuseumImageEmbosser_EmbossImageResponse` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
         func embossImage<Result>(
-            request: GRPCCore.ClientRequest<EmbossImageRequest>,
-            serializer: some GRPCCore.MessageSerializer<EmbossImageRequest>,
-            deserializer: some GRPCCore.MessageDeserializer<EmbossImageResponse>,
+            request: GRPCCore.ClientRequest<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
+            serializer: some GRPCCore.MessageSerializer<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<OrgSfomuseumImageEmbosser_EmbossImageResponse>,
             options: GRPCCore.CallOptions,
-            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<EmbossImageResponse>) async throws -> Result
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse>) async throws -> Result
         ) async throws -> Result where Result: Sendable
     }
 
-    /// Generated client for the "ImageEmbosser" service.
+    /// Generated client for the "org_sfomuseum_image_embosser.ImageEmbosser" service.
     ///
     /// The ``Client`` provides an implementation of ``ClientProtocol`` which wraps
     /// a `GRPCCore.GRPCCClient`. The underlying `GRPCClient` provides the long-lived
@@ -210,26 +210,26 @@ extension ImageEmbosser {
         /// Call the "EmbossImage" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `EmbossImageRequest` message.
-        ///   - serializer: A serializer for `EmbossImageRequest` messages.
-        ///   - deserializer: A deserializer for `EmbossImageResponse` messages.
+        ///   - request: A request containing a single `OrgSfomuseumImageEmbosser_EmbossImageRequest` message.
+        ///   - serializer: A serializer for `OrgSfomuseumImageEmbosser_EmbossImageRequest` messages.
+        ///   - deserializer: A deserializer for `OrgSfomuseumImageEmbosser_EmbossImageResponse` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
         public func embossImage<Result>(
-            request: GRPCCore.ClientRequest<EmbossImageRequest>,
-            serializer: some GRPCCore.MessageSerializer<EmbossImageRequest>,
-            deserializer: some GRPCCore.MessageDeserializer<EmbossImageResponse>,
+            request: GRPCCore.ClientRequest<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
+            serializer: some GRPCCore.MessageSerializer<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<OrgSfomuseumImageEmbosser_EmbossImageResponse>,
             options: GRPCCore.CallOptions = .defaults,
-            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<EmbossImageResponse>) async throws -> Result = { response in
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse>) async throws -> Result = { response in
                 try response.message
             }
         ) async throws -> Result where Result: Sendable {
             try await self.client.unary(
                 request: request,
-                descriptor: ImageEmbosser.Method.EmbossImage.descriptor,
+                descriptor: OrgSfomuseumImageEmbosser_ImageEmbosser.Method.EmbossImage.descriptor,
                 serializer: serializer,
                 deserializer: deserializer,
                 options: options,
@@ -240,27 +240,27 @@ extension ImageEmbosser {
 }
 
 // Helpers providing default arguments to 'ClientProtocol' methods.
-extension ImageEmbosser.ClientProtocol {
+extension OrgSfomuseumImageEmbosser_ImageEmbosser.ClientProtocol {
     /// Call the "EmbossImage" method.
     ///
     /// - Parameters:
-    ///   - request: A request containing a single `EmbossImageRequest` message.
+    ///   - request: A request containing a single `OrgSfomuseumImageEmbosser_EmbossImageRequest` message.
     ///   - options: Options to apply to this RPC.
     ///   - handleResponse: A closure which handles the response, the result of which is
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
     public func embossImage<Result>(
-        request: GRPCCore.ClientRequest<EmbossImageRequest>,
+        request: GRPCCore.ClientRequest<OrgSfomuseumImageEmbosser_EmbossImageRequest>,
         options: GRPCCore.CallOptions = .defaults,
-        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<EmbossImageResponse>) async throws -> Result = { response in
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse>) async throws -> Result = { response in
             try response.message
         }
     ) async throws -> Result where Result: Sendable {
         try await self.embossImage(
             request: request,
-            serializer: GRPCProtobuf.ProtobufSerializer<EmbossImageRequest>(),
-            deserializer: GRPCProtobuf.ProtobufDeserializer<EmbossImageResponse>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<OrgSfomuseumImageEmbosser_EmbossImageRequest>(),
+            deserializer: GRPCProtobuf.ProtobufDeserializer<OrgSfomuseumImageEmbosser_EmbossImageResponse>(),
             options: options,
             onResponse: handleResponse
         )
@@ -268,7 +268,7 @@ extension ImageEmbosser.ClientProtocol {
 }
 
 // Helpers providing sugared APIs for 'ClientProtocol' methods.
-extension ImageEmbosser.ClientProtocol {
+extension OrgSfomuseumImageEmbosser_ImageEmbosser.ClientProtocol {
     /// Call the "EmbossImage" method.
     ///
     /// - Parameters:
@@ -280,14 +280,14 @@ extension ImageEmbosser.ClientProtocol {
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
     public func embossImage<Result>(
-        _ message: EmbossImageRequest,
+        _ message: OrgSfomuseumImageEmbosser_EmbossImageRequest,
         metadata: GRPCCore.Metadata = [:],
         options: GRPCCore.CallOptions = .defaults,
-        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<EmbossImageResponse>) async throws -> Result = { response in
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<OrgSfomuseumImageEmbosser_EmbossImageResponse>) async throws -> Result = { response in
             try response.message
         }
     ) async throws -> Result where Result: Sendable {
-        let request = GRPCCore.ClientRequest<EmbossImageRequest>(
+        let request = GRPCCore.ClientRequest<OrgSfomuseumImageEmbosser_EmbossImageRequest>(
             message: message,
             metadata: metadata
         )

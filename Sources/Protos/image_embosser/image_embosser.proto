@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package image_embosser;
+package org_sfomuseum_image_embosser;
 option go_package = "github.com/sfomuseum/go-image-emboss/grpc";
 
 service ImageEmbosser {

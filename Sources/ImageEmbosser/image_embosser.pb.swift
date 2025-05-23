@@ -21,7 +21,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct EmbossImageRequest: @unchecked Sendable {
+public struct OrgSfomuseumImageEmbosser_EmbossImageRequest: @unchecked Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -37,7 +37,7 @@ public struct EmbossImageRequest: @unchecked Sendable {
   public init() {}
 }
 
-public struct EmbossImageResponse: @unchecked Sendable {
+public struct OrgSfomuseumImageEmbosser_EmbossImageResponse: @unchecked Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -55,8 +55,10 @@ public struct EmbossImageResponse: @unchecked Sendable {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension EmbossImageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "EmbossImageRequest"
+fileprivate let _protobuf_package = "org_sfomuseum_image_embosser"
+
+extension OrgSfomuseumImageEmbosser_EmbossImageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EmbossImageRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "Filename"),
     2: .same(proto: "Body"),
@@ -90,7 +92,7 @@ extension EmbossImageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: EmbossImageRequest, rhs: EmbossImageRequest) -> Bool {
+  public static func ==(lhs: OrgSfomuseumImageEmbosser_EmbossImageRequest, rhs: OrgSfomuseumImageEmbosser_EmbossImageRequest) -> Bool {
     if lhs.filename != rhs.filename {return false}
     if lhs.body != rhs.body {return false}
     if lhs.combined != rhs.combined {return false}
@@ -99,8 +101,8 @@ extension EmbossImageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 }
 
-extension EmbossImageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "EmbossImageResponse"
+extension OrgSfomuseumImageEmbosser_EmbossImageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EmbossImageResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "Filename"),
     2: .same(proto: "Body"),
@@ -134,7 +136,7 @@ extension EmbossImageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: EmbossImageResponse, rhs: EmbossImageResponse) -> Bool {
+  public static func ==(lhs: OrgSfomuseumImageEmbosser_EmbossImageResponse, rhs: OrgSfomuseumImageEmbosser_EmbossImageResponse) -> Bool {
     if lhs.filename != rhs.filename {return false}
     if lhs.body != rhs.body {return false}
     if lhs.combined != rhs.combined {return false}
