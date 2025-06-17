@@ -62,7 +62,20 @@ struct Serve: AsyncParsableCommand {
                 privateKey: keySource,
             )
         }
-            
+                 
+        // START OF I am not sure these are making any difference
+        
+        let keepalive = HTTP2ServerTransport.Config.Keepalive(
+            time: .seconds(0),
+            timeout: .seconds(20),
+            clientBehavior: HTTP2ServerTransport.Config.ClientKeepaliveBehavior(
+                minPingIntervalWithoutCalls: .seconds(3),
+                allowWithoutCalls: true
+            )
+        )
+        
+        // END OF I am not sure these are making any difference
+        
         let transport = HTTP2ServerTransport.Posix(
             address: .ipv4(host: self.host, port: self.port),
             transportSecurity: transportSecurity,
@@ -70,9 +83,12 @@ struct Serve: AsyncParsableCommand {
                 if max_receive_message_length > 0 {
                     config.rpc.maxRequestPayloadSize = max_receive_message_length
                 }
+                
+                // See above
+                config.connection.keepalive = keepalive
               }
         )
-        
+                
         let service = ImageEmbosserService(logger: logger)
         let server = GRPCServer(transport: transport, services: [service])
                 

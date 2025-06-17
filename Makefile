@@ -12,6 +12,7 @@ debug:
 	./.build/debug/image-emboss-grpc-server \
 		--logfile=true \
 		--verbose=true \
+		--max_receive_message_length=20000000
 
 debug-tls:
 	./.build/debug/image-emboss-grpc-server \
