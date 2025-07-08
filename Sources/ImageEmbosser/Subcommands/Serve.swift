@@ -62,13 +62,23 @@ struct Serve: AsyncParsableCommand {
                 privateKey: keySource,
             )
         }
-            
+        
+        // Keepalive configs necessary because this:
         // https://github.com/grpc/grpc-swift-2/issues/5#issuecomment-2984421768
         
-        let client_keepalive = HTTP2ServerTransport.Config.ClientKeepaliveBehavior.init(minPingIntervalWithoutCalls: .seconds(1), allowWithoutCalls: true)
+        // https://github.com/grpc/grpc-swift-nio-transport/blob/15f9bfee04d19c1d720f34c6c6b3e8214bf557db/Sources/GRPCNIOTransportCore/Server/HTTP2ServerTransport.swift#L85
         
-        let keepalive = HTTP2ServerTransport.Config.Keepalive.init(time: .seconds(2), timeout: .seconds(2), clientBehavior: client_keepalive)
-    
+        let client_keepalive = HTTP2ServerTransport.Config.ClientKeepaliveBehavior.init(
+            // Default is 300 (5 minutes)
+            minPingIntervalWithoutCalls: .seconds(1),
+            // Default is false
+            allowWithoutCalls: true
+        )
+        
+        // https://github.com/grpc/grpc-swift-nio-transport/blob/15f9bfee04d19c1d720f34c6c6b3e8214bf557db/Sources/GRPCNIOTransportCore/Server/HTTP2ServerTransport.swift#L52
+        
+        var server_keepalive = HTTP2ServerTransport.Config.Keepalive.defaults
+        server_keepalive.clientBehavior = client_keepalive
         
         let transport = HTTP2ServerTransport.Posix(
             address: .ipv4(host: self.host, port: self.port),
@@ -77,7 +87,7 @@ struct Serve: AsyncParsableCommand {
                 if max_receive_message_length > 0 {
                     config.rpc.maxRequestPayloadSize = max_receive_message_length
                 }
-                config.connection.keepalive = keepalive
+                config.connection.keepalive = server_keepalive
               }
         )
 
