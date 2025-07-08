@@ -63,6 +63,13 @@ struct Serve: AsyncParsableCommand {
             )
         }
             
+        // https://github.com/grpc/grpc-swift-2/issues/5#issuecomment-2984421768
+        
+        let client_keepalive = HTTP2ServerTransport.Config.ClientKeepaliveBehavior.init(minPingIntervalWithoutCalls: .seconds(1), allowWithoutCalls: true)
+        
+        let keepalive = HTTP2ServerTransport.Config.Keepalive.init(time: .seconds(2), timeout: .seconds(2), clientBehavior: client_keepalive)
+    
+        
         let transport = HTTP2ServerTransport.Posix(
             address: .ipv4(host: self.host, port: self.port),
             transportSecurity: transportSecurity,
@@ -70,8 +77,10 @@ struct Serve: AsyncParsableCommand {
                 if max_receive_message_length > 0 {
                     config.rpc.maxRequestPayloadSize = max_receive_message_length
                 }
+                config.connection.keepalive = keepalive
               }
         )
+
         
         let service = ImageEmbosserService(logger: logger)
         let server = GRPCServer(transport: transport, services: [service])
