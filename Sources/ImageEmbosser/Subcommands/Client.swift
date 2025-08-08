@@ -42,7 +42,7 @@ struct Client: AsyncParsableCommand {
         try await withGRPCClient(
             
             transport: .http2NIOPosix(
-                target: .ipv4(host: self.host, port: self.port),
+                target: .ipv4(address: self.host, port: self.port),
                 transportSecurity: .plaintext
             )
             
