@@ -7,7 +7,7 @@ let package = Package(
     name: "ImageEmbosser",
     platforms: [
         .macOS(.v15),
-        .iOS(.v18)
+        .iOS(.v18),
     ],
     dependencies: [
         .package(url: "https://github.com/grpc/grpc-swift-2.git", from: "2.0.0"),
