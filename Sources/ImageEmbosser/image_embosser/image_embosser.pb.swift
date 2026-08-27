@@ -8,7 +8,11 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+#if canImport(FoundationEssentials)
+import FoundationEssentials
+#else
 import Foundation
+#endif
 import SwiftProtobuf
 
 // If the compiler emits an error on this type, it is because this file
@@ -16,12 +20,12 @@ import SwiftProtobuf
 // incompatible with the version of SwiftProtobuf to which you are linking.
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
-fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
+fileprivate nonisolated struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
   struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 
-public struct OrgSfomuseumImageEmbosser_EmbossImageRequest: @unchecked Sendable {
+public nonisolated struct OrgSfomuseumImageEmbosser_EmbossImageRequest: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -37,7 +41,7 @@ public struct OrgSfomuseumImageEmbosser_EmbossImageRequest: @unchecked Sendable 
   public init() {}
 }
 
-public struct OrgSfomuseumImageEmbosser_EmbossImageResponse: @unchecked Sendable {
+public nonisolated struct OrgSfomuseumImageEmbosser_EmbossImageResponse: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -55,15 +59,11 @@ public struct OrgSfomuseumImageEmbosser_EmbossImageResponse: @unchecked Sendable
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "org_sfomuseum_image_embosser"
+fileprivate nonisolated let _protobuf_package = "org_sfomuseum_image_embosser"
 
-extension OrgSfomuseumImageEmbosser_EmbossImageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+nonisolated extension OrgSfomuseumImageEmbosser_EmbossImageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EmbossImageRequest"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "Filename"),
-    2: .same(proto: "Body"),
-    3: .same(proto: "Combined"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}Filename\0\u{1}Body\0\u{1}Combined\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -101,13 +101,9 @@ extension OrgSfomuseumImageEmbosser_EmbossImageRequest: SwiftProtobuf.Message, S
   }
 }
 
-extension OrgSfomuseumImageEmbosser_EmbossImageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+nonisolated extension OrgSfomuseumImageEmbosser_EmbossImageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EmbossImageResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "Filename"),
-    2: .same(proto: "Body"),
-    3: .same(proto: "Combined"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}Filename\0\u{1}Body\0\u{1}Combined\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
